@@ -7,32 +7,24 @@ set -x
 cd www
 
 # makes sure all users exist for the base (mmcplatform)
-wp-cli-php /usr/bin/wp-cli.phar user create mmcveda veda@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcmoritz moritz@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmchiba hiba@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmccameron cameron@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcdesign design@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcbrannon brannon@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcclayton clayton@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcmelissa melissa@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcjennifer jennifer@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcchelsea chelsea@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcryan ryan@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
-wp-cli-php /usr/bin/wp-cli.phar user create mmcmeriah meriah@mixedmediacreations.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
+wp-cli-php /usr/bin/wp-cli.phar user create user1 user1@domain.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
+wp-cli-php /usr/bin/wp-cli.phar user create user2 user2@domain.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
+wp-cli-php /usr/bin/wp-cli.phar user create user3 user2@domain.com --role=administrator --user_pass='[redacted]' --allow-root --url=http://mmcplatform.com/wp/
+# ... and so on
 
 # makes list of users on the base
 userlist=$(wp-cli-php /usr/bin/wp-cli.phar user list --field=user_login --format=csv);
 
 # queries all existing sites
-sitelists=$(wp-cli-php /usr/bin/wp-cli.phar site list --field=url --format=csv); 
+sitelists=$(wp-cli-php /usr/bin/wp-cli.phar site list --field=url --format=csv);
 
-# loops through list of all sites, 
+# loops through list of all sites,
 # then loops through list of all users,
-# and assigns each user to each site 
-# 
-for i in $(echo $sitelists | sed "s/,/ /g");  
-do ( 
-  for j in $(echo $userlist | sed "s/,/ /g");  
-    do ( wp-cli-php /usr/bin/wp-cli.phar  user set-role "$j" administrator --url="$i" ); done; 
-);  
+# and assigns each user to each site
+#
+for i in $(echo $sitelists | sed "s/,/ /g");
+do (
+  for j in $(echo $userlist | sed "s/,/ /g");
+    do ( wp-cli-php /usr/bin/wp-cli.phar  user set-role "$j" administrator --url="$i" ); done;
+);
 done
