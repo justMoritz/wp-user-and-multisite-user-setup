@@ -13,7 +13,7 @@ if [ $? != 0 ]; then
 fi
 
 # adding new users / change user passwords
-wp-cli-php /usr/bin/wp-cli.phar user create yourusernamehere yourusernamehere@mixedmediacreations.com --role=administrator --user_pass='your-unique-password-here' --allow-root
+wp-cli-php /usr/bin/wp-cli.phar user create yourusernamehere yourusernamehere@domain.com --role=administrator --user_pass='your-unique-password-here' --allow-root
 wp-cli-php /usr/bin/wp-cli.phar user update yourusernamehere --skip-email --user_pass='your-unique-password-here' --allow-root
 
 
