@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+# prints everything to the console
+set -x
+
+# goes into the public_html directory
+cd www
+
+# update wpadmin password
+wp-cli-php /usr/bin/wp-cli.phar user update wpadmin --user_pass='your-password-here' --allow-root
+if [ $? != 0 ]; then
+  exit 1
+fi
+
+# adding new users / change user passwords
+wp-cli-php /usr/bin/wp-cli.phar user create yourusernamehere yourusernamehere@mixedmediacreations.com --role=administrator --user_pass='your-unique-password-here' --allow-root
+wp-cli-php /usr/bin/wp-cli.phar user update yourusernamehere --skip-email --user_pass='your-unique-password-here' --allow-root
+
+
+# delete any users like this. --reassign to wpadmin, since we're always going to have that one.
+wp-cli-php /usr/bin/wp-cli.phar user delete tobedeletedusernamehere  --reassign=wpadmin --allow-root
+
