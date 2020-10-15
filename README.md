@@ -1,11 +1,19 @@
-# Change WP Users for all Accounts on Production Server (Liquidweb)
+# Change WP Users for all Accounts on Production Server
+
+#### 0) Structure
+The server this is run on has the following setup
+```
+/home/[username]/public_html/...
+/home/[username2]/public_html/...
+etc.
+```
 
 #### 1) Make updates to the script file
 Open `m_wp_user_setup` and change the passwords you want, add the users you want (the pair of lines of code under # adding new users / change user passwords)
 
-#### 2) Copy/Edit the file to the server 
+#### 2) Copy/Edit the file to the server
 ssh into root (yes root) and copy the `m_wp_user_setup` file into `/usr/local/bin/`
-The file is probably already going to be there, you might chose just to edit it.
+If this file is already there, you might chose just to edit it.
 
 #### 3) Execute for all users
 cd into the home directory on the server with `cd /home` and run the following command:
